@@ -2,6 +2,10 @@
 
 Part of [Level 1: Observe](../README.md). You need your **Enigma number E** (see the [main README](../../README.md#your-enigma-number-e)). The examples use E = 4671, from the username `math-cat7`.
 
+
+
+
+
 **What to submit:** one pull request that adds your work to `Level_1/A_city/<your-github-username>/`. Any format is fine: a `solution.md`, a scanned PDF of handwritten pages, or photos of your pages. Keep each file under 2 MB.
 
 ---

@@ -58,8 +58,8 @@ To avoid collision, we need the same holes as the number of pigeons, i.e., the s
 Instead of multiplying it by $2^n$, we can multiply it by $37^n$.
 
 Why it can never collide:
+By multiplying each character's value by $37^n$ (where $n$ is the character's position), we are essentially converting the username into a Base-37 number. Just like the decimal (base-10) system uses powers of 10 to ensure every sequence of digits forms a unique number, using powers of 37 ensures every combination of characters forms a strictly unique Enigma number. Because of this positional numeral system, you can perfectly reverse the process (using modulo 37 arithmetic) to decode the exact username from the number. Therefore, no two usernames can ever map to the same number.
 
-Because if peigon hole principle, it is mathematically guaranteed to not collide.
 ## What surprised me
 I was able to apply Piegon Hole Principle in the first go, lol.
 ## Did I use AI? For what?

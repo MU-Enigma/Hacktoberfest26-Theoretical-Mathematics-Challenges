@@ -62,7 +62,7 @@ Greedy blindly grabs the biggest possible token (14) because it fits inside 18. 
 The table method uses Dynamic Programming. The formula `1 + the smallest of best[x − t]` works because to arrive at amount `x`, you *must* hand over some final token `t`. If you already know the absolute fewest tokens needed to make the remaining amount (`x - t`), you just add 1 (for token `t`) to find the total. By checking this against *every* possible token `t` that fits, you are guaranteed to find the true minimum path to `x` without getting trapped in a "greedy" dead end.
 
 ## What surprised me
-I was surprised that the greedy algorithm held on for so long (matching the best algorithm perfectly up to 17) before failing so dramatically at 18 (a difference of 3 tokens!).
+I was surprised that the greedy algorithm held on for so long (matching the best algorithm perfectly up to 17) before failing so dramatically at 18 (a difference of 3 tokens).
 
 ## Did I use AI? For what?
 Nope.

@@ -65,4 +65,4 @@ To perfectly resolve points 2 and 3, the numeral system must be upgraded to **Ba
 I was able to apply Pigeonhole Principle in the first go for the initial collision proof, lol.
 
 ## Did I use AI? For what?
-Nope, I did not use AI for this task :)
+To get the hint of using base 38

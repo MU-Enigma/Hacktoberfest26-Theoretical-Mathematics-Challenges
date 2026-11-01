@@ -49,6 +49,18 @@ To avoid collision, we need to ensure every single character sequence maps to a 
 ## Why it can never collide
 By assigning each character a unique value from 1 to 37 and multiplying by 37^n, we are essentially converting the username into a **Base-37 positional numeral system**. Just like the decimal (base-10) system uses powers of 10 to ensure every sequence of digits forms a unique number, using powers of 37 ensures every combination of characters forms a strictly unique Enigma number. Because this forms a bijective mapping, you can perfectly reverse the mathematical process (using modulo 37 arithmetic) to decode the exact username from the number. Therefore, no two usernames can ever map to the same number.
 
+# Corrections
+Based on the PR review, there were three edge cases in my initial logic and new rule that needed addressing:
+
+1. **The PHP Lower Bound & Invalid Usernames:** The calculation `37^39` includes invalid GitHub usernames (like `ab--cd`). However, even if we restrict the set strictly to valid usernames, the Pigeonhole Principle still proves collisions. For instance, the number of valid 10-character usernames made *only* of lowercase letters is `26^10 ≈ 1.41 × 10^14`. Because this strictly valid subset (1.41 × 10^14) is already larger than the maximum possible Enigma number for all 39 characters (1.43 × 10^13), collisions are mathematically guaranteed without needing to include invalid syntax strings.
+2. **The Base-37 Modulo 0 Bug:** If we use Base 37 and a character is assigned the value 37 (like `-`), doing `37 mod 37` evaluates to `0`, breaking the reverse-mapping algorithm. 
+3. **The Zero Exploit:** If any character evaluates to 0, usernames like `abc` and `abc-` will sum to the exact same number, causing a collision.
+
+**The Fixed Rule (Base 38):**
+To perfectly resolve points 2 and 3, the numeral system must be upgraded to **Base 38**. By assigning characters strictly positive values from 1 to 37, and multiplying by **38^n**, we eliminate `0` entirely. 
+* The base (38) is strictly larger than the max digit (37), preventing modulo 0 errors.
+* Because no character is worth 0, a string like `abc-` will strictly have a higher sum than `abc`, eliminating length-based collisions.
+
 ## What surprised me
 I was able to apply Pigeonhole Principle in the first go for the initial collision proof, lol.
 

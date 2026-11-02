@@ -1,0 +1,68 @@
+# 2A: architmishra-15
+
+## My Enigma number
+E = 122433
+
+My guess: **Collision would indeed occur**
+
+## Working -
+We can prove that a collision would occur in the original system by the Pigeonhole Principle.
+
+**Max length of GitHub username:** 39
+**Total number of allowed characters:** 26 (letters) + 10 (digits) + 1 (hyphen) = 37
+Therefore, Total number of possible GitHub usernames = 37^39
+
+**Highest Possible Enigma Number:** E_max = 26 * (2^39 - 1) ≈ 1.43 × 10^13
+
+**Conclusion by the Pigeonhole Principle:**
+Because the number of possible usernames (37^39) is astronomically larger than the number of possible Enigma numbers (≈ 1.43 × 10^13), multiple usernames are mathematically guaranteed to map to the same Enigma number.
+
+### Twin 1 (Simple Twin):
+A simple twin is found by swapping a character for another that has the exact same base value. Both `-` and `0` have a value of 0.
+Original: `architmishra-15`
+Twin 1: `architmishra015`
+(The E value remains exactly 122433 because the mathematical sum does not change).
+
+### Twin 2 (Smarter Twin 1):
+Let's take the first two letters: `a` (1) & `r` (18). 
+(1 × 1) + (18 × 2) = 37.
+Replace them with `c` (3) and `q` (17):
+(3 × 1) + (17 × 2) = 37.
+Therefore, **The first smarter twin name:** ***cqchitmishra-15***
+
+### Twin 3 (Smarter Twin 2):
+Let's take the third and fourth letters: `c` (3) and `h` (8).
+Original Sum: (3 × 4) + (8 × 8) = 76.
+Replace them with `e` (5) and `g` (7):
+New Sum: (5 × 4) + (7 × 8) = 76.
+Therefore, **The second smarter twin name:** ***aregitmishra-15***
+
+### The two reasons for collisions:
+1. **Duplicate character values:** Certain characters in the original rule share the exact same assigned value (e.g., `-` and `0` are both worth 0; `a` and `1` are both worth 1). Swapping these guarantees an identical E.
+2. **Algebraic sum overlap:** The multiplier (2^n) is too small compared to the max character value (26), allowing combinations of smaller/larger characters to yield the exact same sum.
+
+## My new rule
+To avoid collision, we need to ensure every single character sequence maps to a completely unique hash. 
+1. First, assign every allowed character (letters, numbers, hyphen) a strictly unique value from 1 to 37 (e.g., `a-z` = 1-26, `0-9` = 27-36, `-` = 37) so no two characters share a value.
+2. Instead of multiplying by 2^n, multiply by 37^n (where n is the character's position index).
+
+## Why it can never collide
+By assigning each character a unique value from 1 to 37 and multiplying by 37^n, we are essentially converting the username into a **Base-37 positional numeral system**. Just like the decimal (base-10) system uses powers of 10 to ensure every sequence of digits forms a unique number, using powers of 37 ensures every combination of characters forms a strictly unique Enigma number. Because this forms a bijective mapping, you can perfectly reverse the mathematical process (using modulo 37 arithmetic) to decode the exact username from the number. Therefore, no two usernames can ever map to the same number.
+
+# Corrections
+Based on the PR review, there were three edge cases in my initial logic and new rule that needed addressing:
+
+1. **The PHP Lower Bound & Invalid Usernames:** The calculation `37^39` includes invalid GitHub usernames (like `ab--cd`). However, even if we restrict the set strictly to valid usernames, the Pigeonhole Principle still proves collisions. For instance, the number of valid 10-character usernames made *only* of lowercase letters is `26^10 ≈ 1.41 × 10^14`. Because this strictly valid subset (1.41 × 10^14) is already larger than the maximum possible Enigma number for all 39 characters (1.43 × 10^13), collisions are mathematically guaranteed without needing to include invalid syntax strings.
+2. **The Base-37 Modulo 0 Bug:** If we use Base 37 and a character is assigned the value 37 (like `-`), doing `37 mod 37` evaluates to `0`, breaking the reverse-mapping algorithm. 
+3. **The Zero Exploit:** If any character evaluates to 0, usernames like `abc` and `abc-` will sum to the exact same number, causing a collision.
+
+**The Fixed Rule (Base 38):**
+To perfectly resolve points 2 and 3, the numeral system must be upgraded to **Base 38**. By assigning characters strictly positive values from 1 to 37, and multiplying by **38^n**, we eliminate `0` entirely. 
+* The base (38) is strictly larger than the max digit (37), preventing modulo 0 errors.
+* Because no character is worth 0, a string like `abc-` will strictly have a higher sum than `abc`, eliminating length-based collisions.
+
+## What surprised me
+I was able to apply Pigeonhole Principle in the first go for the initial collision proof, lol.
+
+## Did I use AI? For what?
+To get the hint of using base 38

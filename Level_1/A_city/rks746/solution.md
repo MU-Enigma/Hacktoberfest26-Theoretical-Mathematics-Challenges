@@ -46,9 +46,12 @@ stuck at R (C-S, P-Q bridges not covered)
 A walk covering all bridges only once is not possible.   
 
 ### Why
-Most islands have odd number of bridges. An intuition is that if one travels to an island, comes out, and then again goes in, he/she will have to repeat a bridge to come out thus voilating the condition. It would have been fine if that island was last, but all 4 islands having degree 3 cannot be last. 
+Most islands have odd number of bridges. An intuition is that if one travels to an island, comes out, and then again goes in, he/she will have to repeat a bridge to come out thus voilating the condition. It would have been fine if that island was last (final destination), but all 4 islands having degree 3 cannot be last. 
 
 Euler's theorem states that a connected graph has an Eulerian trail if and only if it has either 0 or exactly 2 vertices of odd degree. (either first or last vertices)  
 In this case, there are 4 odd degree vertices.
 
 Thus, my attempts failed to cover all bridges once and this was confirmed by the count table.
+
+### Who helped me 
+I did most of the stuff myself. Euler's theorem was recommended by AI to improve my explanation.
